@@ -19,4 +19,13 @@ public class EmployeesService {
     public List<Employee> getAllEmployees() {
         return employeesRepository.getEmployees();
     }
+
+    public void deleteEmployeeRecord(Integer employeeId){
+        Employee employeeToDelete = employeesRepository.getEmployees()
+                .stream()
+                .filter(employee -> employee.getId().equals(employeeId))
+                .findFirst()
+                .orElse(null);
+        employeesRepository.getEmployees().remove(employeeToDelete);
+    }
 }

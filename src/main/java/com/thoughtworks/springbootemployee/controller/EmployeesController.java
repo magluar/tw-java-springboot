@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
 import com.thoughtworks.springbootemployee.service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,10 @@ public class EmployeesController {
     @Autowired
     private EmployeesService employeesService;
 
-    public EmployeesController(){
-        employees.add(new Employee(1, "alice", 20, "female", 2000));
-        employees.add(new Employee(2, "bob", 21, "male", 1000));
-    }
+//    public EmployeesController(){
+//        employees.add(new Employee(1, "alice", 20, "female", 2000));
+//        employees.add(new Employee(2, "bob", 21, "male", 1000));
+//    }
 
     public EmployeesController(EmployeesService employeesService){
         this.employeesService = employeesService;
@@ -87,6 +88,6 @@ public class EmployeesController {
 
     @DeleteMapping(path = "/{employeeId}")
     private void deleteEmployeeRecord(@PathVariable Integer employeeId){
-        employees.removeIf(employee -> employee.getId().equals(employeeId));
+        employeesService.deleteEmployeeRecord(employeeId);
     }
 }
