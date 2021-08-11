@@ -49,4 +49,11 @@ public class EmployeesController {
                 .filter(employee -> gender.toLowerCase().equals(employee.getGender().toLowerCase()))
                 .collect(Collectors.toList());
     }
+
+    @PostMapping
+    public void addEmployee(@RequestBody Employee employee){
+        Employee employeeToBeAdded = new Employee(employees.size() + 1, employee.getName(), employee.getAge(),
+                employee.getGender(), employee.getSalary());
+        employees.add(employeeToBeAdded);
+    }
 }
