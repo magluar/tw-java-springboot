@@ -85,4 +85,8 @@ public class EmployeesController {
         return employee;
     }
 
+    @DeleteMapping(path = "/{employeeId}")
+    private void deleteEmployeeRecord(@PathVariable Integer employeeId){
+        employees.removeIf(employee -> employee.getId().equals(employeeId));
+    }
 }
