@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.controller.Employee;
+import com.thoughtworks.springbootemployee.service.EmployeesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,19 +13,21 @@ import java.util.stream.Collectors;
 @RequestMapping("/employees")
 public class EmployeesController {
     private final List<Employee> employees = new ArrayList<>();
+    @Autowired
+    private EmployeesService employeesService;
 
     public EmployeesController(){
         employees.add(new Employee(1, "alice", 20, "female", 2000));
         employees.add(new Employee(2, "bob", 21, "male", 1000));
-        employees.add(new Employee(3, "tom", 5, "male", 5));
-        employees.add(new Employee(4, "jerry", 4, "male", 5));
-        employees.add(new Employee(5, "doraemon", 99, "male", 10));
-        employees.add(new Employee(6, "nobita", 10, "male", 100));
+    }
+
+    public EmployeesController(EmployeesService employeesService){
+        this.employeesService = employeesService;
     }
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employees;
+        return employeesService.getAllEmployees();
     }
 
     @GetMapping(path = "/{employeeId}")
