@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +71,28 @@ public class EmployeesServiceTest {
         //then
         assertIterableEquals(employees, actualEmployees);
         assertEquals(emptyEmployees, actualEmptyEmployees);
+    }
+
+    @Test
+    public void should_return_employees_by_gender_when_getAllEmployeesByGender_given_employee_gender(){
+        //given male
+        List<Employee> maleEmployees = new ArrayList<>();
+        maleEmployees.add(new Employee(1, "tom", 20, "male", 2000));
+        maleEmployees.add(new Employee(2, "bob", 21, "male", 1000));
+
+        //when & then male
+        given(employeeRepository.getEmployees()).willReturn(maleEmployees);
+        List<Employee> actualMaleEmployees = employeeService.getAllEmployeesByGender("male");
+        assertIterableEquals(maleEmployees, actualMaleEmployees);
+
+        //given female
+        List<Employee> femaleEmployees = new ArrayList<>();
+        femaleEmployees.add(new Employee(1, "alice", 20, "female", 2000));
+        femaleEmployees.add(new Employee(2, "jeany", 21, "female", 1000));
+
+        //when & then male
+        given(employeeRepository.getEmployees()).willReturn(femaleEmployees);
+        List<Employee> actualFemaleEmployees = employeeService.getAllEmployeesByGender("Female");
+        assertIterableEquals(femaleEmployees, actualFemaleEmployees);
     }
 }
