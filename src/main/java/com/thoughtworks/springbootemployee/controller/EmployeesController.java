@@ -16,11 +16,6 @@ public class EmployeesController {
     @Autowired
     private EmployeesService employeesService;
 
-//    public EmployeesController(){
-//        employees.add(new Employee(1, "alice", 20, "female", 2000));
-//        employees.add(new Employee(2, "bob", 21, "male", 1000));
-//    }
-
     public EmployeesController(EmployeesService employeesService){
         this.employeesService = employeesService;
     }
@@ -32,18 +27,12 @@ public class EmployeesController {
 
     @GetMapping(path = "/{employeeId}")
     public Employee findEmployeeById(@PathVariable Integer employeeId){
-        return employees.stream()
-                .filter(employee -> employee.getId().equals(employeeId))
-                .findFirst()
-                .orElse(null);
+        return employeesService.findEmployeeById(employeeId);
     }
 
     @GetMapping(params = {"pageIndex", "pageSize"})
     public List<Employee> getEmployeesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
-        return employees.stream()
-                .skip((long) (pageIndex - 1) * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        return employeesService.getEmployeesByPagination(pageIndex, pageSize);
     }
 
     @GetMapping (params="gender")
