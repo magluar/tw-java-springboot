@@ -37,42 +37,17 @@ public class EmployeesController {
 
     @GetMapping (params="gender")
     public List<Employee> getAllEmployeesByGender(@RequestParam String gender){
-        return employees.stream()
-                .filter(employee -> gender.toLowerCase().equals(employee.getGender().toLowerCase()))
-                .collect(Collectors.toList());
+        return employeesService.getAllEmployeesByGender(gender);
     }
 
     @PostMapping
     public void addEmployee(@RequestBody Employee employee){
-        Employee employeeToBeAdded = new Employee(employees.size() + 1, employee.getName(), employee.getAge(),
-                employee.getGender(), employee.getSalary());
-        employees.add(employeeToBeAdded);
+        employeesService.addEmployee(employee);
     }
 
     @PutMapping(path = "/{employeeId}")
     public Employee updateEmployee(@PathVariable Integer employeeId, @RequestBody Employee employeeUpdated){
-        return employees.stream()
-                .filter(employee -> employee.getId().equals(employeeId))
-                .findFirst()
-                .map(employee -> updateEmployeeInformation(employee, employeeUpdated))
-                .get();
-    }
-
-    private Employee updateEmployeeInformation(Employee employee, Employee employeeUpdated) {
-        if(employeeUpdated.getAge() != null){
-            employee.setAge(employeeUpdated.getAge());
-        }
-        if(employeeUpdated.getName() != null){
-            employee.setName(employeeUpdated.getName());
-        }
-        if(employeeUpdated.getGender()!= null){
-            employee.setGender(employeeUpdated.getGender());
-        }
-        if(employeeUpdated.getSalary() != null){
-            employee.setSalary(employeeUpdated.getSalary());
-        }
-
-        return employee;
+        return employeesService.updateEmployee(employeeId, employeeUpdated);
     }
 
     @DeleteMapping(path = "/{employeeId}")
