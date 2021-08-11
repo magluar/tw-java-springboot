@@ -48,9 +48,29 @@ public class EmployeesServiceTest {
         given(employeeRepository.getEmployees()).willReturn(employees);
 
         //when
-        Employee actualBobEmployee = employeeService.findEmployeeById(1);
+        Employee actualBobEmployee = employeeService.findEmployeeById(2);
 
         //then
-        assertEquals(bob, actualBobEmployee);
+        assertEquals(alice, actualBobEmployee);
+    }
+
+    @Test
+    public void should_return_employees_by_page_and_size_when_getEmployeesPagination_given_page_and_page_size(){
+        //given
+        List<Employee> employees = new ArrayList<>();
+        List<Employee> emptyEmployees = new ArrayList<>();
+        Employee bob = new Employee(1, "alice", 20, "female", 2000);
+        Employee alice = new Employee(2, "bob", 21, "male", 1000);
+        employees.add(bob);
+        employees.add(alice);
+        given(employeeRepository.getEmployees()).willReturn(employees);
+
+        //when
+        List<Employee> actualEmployees = employeeService.getEmployeesByPagination(1, 2);
+        List<Employee> actualEmptyEmployees = employeeService.getEmployeesByPagination(2, 5);
+
+        //then
+        assertIterableEquals(employees, actualEmployees);
+        assertEquals(emptyEmployees, actualEmptyEmployees);
     }
 }
