@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +40,13 @@ public class EmployeesController {
         return employees.stream()
                 .skip((pageIndex - 1) * pageSize)
                 .limit(pageSize)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping (params="gender")
+    public List<Employee> getAllEmployeesByGender(@RequestParam String gender){
+        return employees.stream()
+                .filter(employee -> gender.toLowerCase().equals(employee.getGender().toLowerCase()))
                 .collect(Collectors.toList());
     }
 }
