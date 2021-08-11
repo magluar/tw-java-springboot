@@ -45,10 +45,8 @@ public class EmployeesService {
                 .collect(Collectors.toList());
     }
 
-    public void addEmployee(Employee employee){
-        Employee employeeToBeAdded = new Employee(employeesRepository.getEmployees().size() + 1, employee.getName(),
-                employee.getAge(), employee.getGender(), employee.getSalary());
-        employeesRepository.getEmployees().add(employeeToBeAdded);
+    public Employee addEmployee(Employee employee){
+        return employeesRepository.addEmployee(employee);
     }
 
     public Employee updateEmployee(Integer employeeId, Employee employeeUpdated){

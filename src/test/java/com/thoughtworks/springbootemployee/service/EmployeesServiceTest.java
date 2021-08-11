@@ -95,4 +95,17 @@ public class EmployeesServiceTest {
         List<Employee> actualFemaleEmployees = employeeService.getAllEmployeesByGender("Female");
         assertIterableEquals(femaleEmployees, actualFemaleEmployees);
     }
+
+    @Test
+    public void should_return_added_employee_when_addEmployee_given_add_an_employee(){
+        //given
+        Employee employee = new Employee(1, "tom", 20, "male", 2000);
+        given(employeeRepository.addEmployee(employee)).willReturn(employee);
+
+        //when
+        Employee addedEmployee = employeeService.addEmployee(employee);
+
+        //then
+        assertEquals(employee, addedEmployee);
+    }
 }
