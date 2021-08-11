@@ -28,17 +28,17 @@ public class EmployeesController {
     }
 
     @GetMapping(path = "/{employeeId}")
-    public Employee findById(@PathVariable Integer employeeId){
+    public Employee findEmployeeById(@PathVariable Integer employeeId){
         return employees.stream()
                 .filter(employee -> employee.getId().equals(employeeId))
                 .findFirst()
                 .orElse(null);
     }
 
-    @GetMapping(params = {"pageIndex", "pageSize"}) //1 5
+    @GetMapping(params = {"pageIndex", "pageSize"})
     public List<Employee> getEmployeesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
         return employees.stream()
-                .skip((pageIndex - 1) * pageSize)
+                .skip((long) (pageIndex - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
