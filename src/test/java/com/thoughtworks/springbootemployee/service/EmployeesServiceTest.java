@@ -112,18 +112,18 @@ public class EmployeesServiceTest {
         assertEquals(2, addEmployee.size());
     }
 
-//    @Test
-//    public void should_return_updated_employee_given_UpdateEmployeeInformation_given_update_request_body(){
-//        //given
-//        Employee employee = new Employee(1, "tom", 20, "male", 2000);
-//        employeeService.updateEmployee(1, new Employee(null, null, 21, "female", null));
-//        given(employeeService.updateEmployee(1, employee)).willReturn(employee);
+    @Test
+    public void should_return_updated_employee_given_UpdateEmployeeInformation_given_update_request_body(){
+        //given
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "tom", 20, "male", 2000));
+        given(employeeService.getAllEmployees()).willReturn(employees);
 
         //when
-//        Employee updatedEmployee = new Employee(1, "tom", 20, "male", 2000);
-//        Employee updatedEmployee1 = employeeService.updateEmployee(1, new Employee(null, null, 21, "female", null));
-//
-//        //then
-//        assertEquals(employee, updatedEmployee1);
-//    }
+        Employee updatedEmployee = new Employee(1, "tom", 20, "female", 2000);
+        Employee updatedEmployee1 = employeeService.updateEmployee(1, updatedEmployee);
+
+        //then
+        assertEquals(employeeService.findEmployeeById(1).getGender(), updatedEmployee1.getGender());
+    }
 }
