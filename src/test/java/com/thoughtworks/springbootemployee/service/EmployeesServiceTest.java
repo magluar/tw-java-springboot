@@ -11,8 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,10 +46,10 @@ public class EmployeesServiceTest {
         given(employeeRepository.getEmployees()).willReturn(employees);
 
         //when
-        Employee actualBobEmployee = employeeService.findEmployeeById(2);
+        Employee actualBobEmployee = employeeService.findEmployeeById(1);
 
         //then
-        assertEquals(alice, actualBobEmployee);
+        assertEquals(bob, actualBobEmployee);
     }
 
     @Test
@@ -99,13 +98,32 @@ public class EmployeesServiceTest {
     @Test
     public void should_return_added_employee_when_addEmployee_given_add_an_employee(){
         //given
+        List<Employee> employees = new ArrayList<>();
         Employee employee = new Employee(1, "tom", 20, "male", 2000);
-        given(employeeRepository.addEmployee(employee)).willReturn(employee);
+        employees.add(employee);
+        given(employeeRepository.getEmployees()).willReturn(employees);
 
         //when
-        Employee addedEmployee = employeeService.addEmployee(employee);
+        Employee newEmployee = new Employee(1, "alice", 21, "female", 2000);
+        employeeService.addEmployee(newEmployee);
+        List<Employee> addEmployee = employeeService.getAllEmployees();
 
         //then
-        assertEquals(employee, addedEmployee);
+        assertEquals(2, addEmployee.size());
     }
+
+//    @Test
+//    public void should_return_updated_employee_given_UpdateEmployeeInformation_given_update_request_body(){
+//        //given
+//        Employee employee = new Employee(1, "tom", 20, "male", 2000);
+//        employeeService.updateEmployee(1, new Employee(null, null, 21, "female", null));
+//        given(employeeService.updateEmployee(1, employee)).willReturn(employee);
+
+        //when
+//        Employee updatedEmployee = new Employee(1, "tom", 20, "male", 2000);
+//        Employee updatedEmployee1 = employeeService.updateEmployee(1, new Employee(null, null, 21, "female", null));
+//
+//        //then
+//        assertEquals(employee, updatedEmployee1);
+//    }
 }

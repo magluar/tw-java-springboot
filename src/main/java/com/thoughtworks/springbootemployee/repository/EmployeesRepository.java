@@ -22,14 +22,4 @@ public class EmployeesRepository {
     public List<Employee> getEmployees() {
         return employees;
     }
-
-    public Employee addEmployee(Employee employee) {
-        Employee employeeToBeAdded = new Employee(getEmployees().size() + 1,
-                employee.getName(),
-                employee.getAge(),
-                employee.getGender(),
-                employee.getSalary());
-        getEmployees().add(employeeToBeAdded);
-        return employeeToBeAdded;
-    }
 }

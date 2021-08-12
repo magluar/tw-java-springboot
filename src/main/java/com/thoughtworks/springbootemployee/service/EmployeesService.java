@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeesService {
     @Autowired
-    private EmployeesRepository employeesRepository;
+    private final EmployeesRepository employeesRepository;
 
     public EmployeesService(EmployeesRepository employeesRepository) {
         this.employeesRepository = employeesRepository;
@@ -45,8 +45,13 @@ public class EmployeesService {
                 .collect(Collectors.toList());
     }
 
-    public Employee addEmployee(Employee employee){
-        return employeesRepository.addEmployee(employee);
+    public void addEmployee(Employee employee) {
+        Employee employeeToBeAdded = new Employee(employeesRepository.getEmployees().size() + 1,
+                employee.getName(),
+                employee.getAge(),
+                employee.getGender(),
+                employee.getSalary());
+        employeesRepository.getEmployees().add(employeeToBeAdded);
     }
 
     public Employee updateEmployee(Integer employeeId, Employee employeeUpdated){
@@ -57,6 +62,7 @@ public class EmployeesService {
                 .map(employee -> updateEmployeeInformation(employee, employeeUpdated))
                 .get();
     }
+
     private Employee updateEmployeeInformation(Employee employee, Employee employeeUpdated) {
         if(employeeUpdated.getAge() != null){
             employee.setAge(employeeUpdated.getAge());
