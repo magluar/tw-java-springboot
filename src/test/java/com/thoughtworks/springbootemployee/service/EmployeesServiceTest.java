@@ -126,4 +126,18 @@ public class EmployeesServiceTest {
         //then
         assertEquals(employeeService.findEmployeeById(1).getGender(), updatedEmployee1.getGender());
     }
+
+    @Test
+    public void should_return_updated_employee_list_when_deleteEmployeeRecord_given_delete_request_body(){
+        //given
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee(1, "tom", 20, "male", 2000));
+        given(employeeService.getAllEmployees()).willReturn(employees);
+
+        //when
+        employeeService.deleteEmployeeRecord(1);
+
+        //then
+        assertEquals(employeeRepository.getEmployees().size(), 0);
+    }
 }
