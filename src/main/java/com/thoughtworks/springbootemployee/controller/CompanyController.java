@@ -34,4 +34,14 @@ public class CompanyController {
     public List<Employee> getEmployeesByCompanyId(Integer companyId){
         return companyService.getEmployeesByCompanyId(companyId);
     }
+
+    @PostMapping
+    public void addEmployee(@RequestBody Company company){
+        companyService.addCompany(company);
+    }
+
+    @PutMapping(path = "/{companyId}")
+    public Company updateCompany(@PathVariable Integer companyId, @RequestBody Company companyUpdated){
+        return companyService.updateEmployee(companyId, companyUpdated);
+    }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public class CompanyRepository {
     private List<Company> companies = new ArrayList<>();
     private List<Employee> employees = new ArrayList<>();
+
     public CompanyRepository() {
         List<Employee> emptyEmployees = new ArrayList<>();
         Employee employee1 = new Employee(1, "alice", 20, "female", 2000, 1);
@@ -27,5 +28,9 @@ public class CompanyRepository {
 
     public List<Company> getCompanies() {
         return companies;
+    }
+
+    public List<Employee> getEmployees(){
+        return employees;
     }
 }

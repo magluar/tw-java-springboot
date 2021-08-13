@@ -48,4 +48,29 @@ public class CompanyService {
                 .orElse(null))
                 .getEmployees();
     }
+
+    public void addCompany(Company company) {
+        Company companyToBeAdded = new Company(companyRepository.getCompanies().size() + 1,
+                company.getCompanyName(),
+                company.getEmployees());
+        companyRepository.getCompanies().add(companyToBeAdded);
+    }
+
+    public Company updateEmployee(Integer companyId, Company companyUpdated) {
+        return companyRepository.getCompanies()
+                .stream()
+                .filter(company -> company.getId() == companyId)
+                .findFirst()
+                .map(company -> updateCompanyInformation(company, companyUpdated))
+                .orElse(null);
+    }
+
+    private Company updateCompanyInformation(Company company, Company companyUpdated) {
+        if(company.getCompanyName() != null){
+            company.setCompanyName(company.getCompanyName());
+        }
+        return company;
+    }
+
+
 }
