@@ -30,8 +30,8 @@ public class CompanyController {
         return companyService.getCompaniesByPagination(pageIndex, pageSize);
     }
 
-//    @GetMapping(params = "/{companyId}/employees")
-//    public List<Employee> getEmployeesByCompanyId(Integer companyId){
-//        return
-//    }
+    @GetMapping(params = "/{companyId}/employees")
+    public List<Employee> getEmployeesByCompanyId(Integer companyId){
+        return companyService.getEmployeesByCompanyId(companyId);
+    }
 }

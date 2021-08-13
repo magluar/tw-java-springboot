@@ -10,10 +10,15 @@ import java.util.List;
 @Repository
 public class CompanyRepository {
     private List<Company> companies = new ArrayList<>();
-
+    private List<Employee> employees = new ArrayList<>();
     public CompanyRepository() {
-        companies.add(new Company(1, "Google"));
-        companies.add(new Company(2, "Amazon"));
+        List<Employee> emptyEmployees = new ArrayList<>();
+        Employee employee1 = new Employee(1, "alice", 20, "female", 2000, 1);
+        Employee employee2 = new Employee(2, "bob", 21, "male", 1000, 1);
+        employees.add(employee1);
+        employees.add(employee2);
+        companies.add(new Company(1, "Google", employees));
+        companies.add(new Company(2, "Amazon", emptyEmployees));
     }
 
     public CompanyRepository(List<Company> companies) {

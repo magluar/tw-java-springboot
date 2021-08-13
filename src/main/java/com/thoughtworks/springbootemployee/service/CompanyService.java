@@ -1,11 +1,14 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.controller.Company;
+import com.thoughtworks.springbootemployee.controller.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,5 +38,14 @@ public class CompanyService {
                 .skip((long) (pageIndex - 1) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
+    }
+
+    public List<Employee> getEmployeesByCompanyId(Integer companyId) {
+        return Objects.requireNonNull(companyRepository.getCompanies()
+                .stream()
+                .filter(company -> company.getId() == companyId)
+                .findFirst()
+                .orElse(null))
+                .getEmployees();
     }
 }
