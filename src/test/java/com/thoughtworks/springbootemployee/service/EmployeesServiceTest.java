@@ -24,8 +24,8 @@ public class EmployeesServiceTest {
     public void should_return_all_employees_when_getAllEmployees_given_all_employees() {
         //given
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "alice", 20, "female", 2000));
-        employees.add(new Employee(2, "bob", 21, "male", 1000));
+        employees.add(new Employee(1, "alice", 20, "female", 2000, 1));
+        employees.add(new Employee(2, "bob", 21, "male", 1000, 1));
         given(employeeRepository.getEmployees()).willReturn(employees);
 
         //when
@@ -39,8 +39,8 @@ public class EmployeesServiceTest {
     public void should_return_employee_by_id_when_findEmployeeById_given_employeeId(){
         //given
         List<Employee> employees = new ArrayList<>();
-        Employee bob = new Employee(1, "alice", 20, "female", 2000);
-        Employee alice = new Employee(2, "bob", 21, "male", 1000);
+        Employee bob = new Employee(1, "alice", 20, "female", 2000, 1);
+        Employee alice = new Employee(2, "bob", 21, "male", 1000, 1);
         employees.add(bob);
         employees.add(alice);
         given(employeeRepository.getEmployees()).willReturn(employees);
@@ -57,8 +57,8 @@ public class EmployeesServiceTest {
         //given
         List<Employee> employees = new ArrayList<>();
         List<Employee> emptyEmployees = new ArrayList<>();
-        Employee bob = new Employee(1, "alice", 20, "female", 2000);
-        Employee alice = new Employee(2, "bob", 21, "male", 1000);
+        Employee bob = new Employee(1, "alice", 20, "female", 2000, 1);
+        Employee alice = new Employee(2, "bob", 21, "male", 1000, 1);
         employees.add(bob);
         employees.add(alice);
         given(employeeRepository.getEmployees()).willReturn(employees);
@@ -76,8 +76,8 @@ public class EmployeesServiceTest {
     public void should_return_employees_by_gender_when_getAllEmployeesByGender_given_employee_gender(){
         //given male
         List<Employee> maleEmployees = new ArrayList<>();
-        maleEmployees.add(new Employee(1, "tom", 20, "male", 2000));
-        maleEmployees.add(new Employee(2, "bob", 21, "male", 1000));
+        maleEmployees.add(new Employee(1, "tom", 20, "male", 2000, 1));
+        maleEmployees.add(new Employee(2, "bob", 21, "male", 1000, 1));
 
         //when & then male
         given(employeeRepository.getEmployees()).willReturn(maleEmployees);
@@ -86,8 +86,8 @@ public class EmployeesServiceTest {
 
         //given female
         List<Employee> femaleEmployees = new ArrayList<>();
-        femaleEmployees.add(new Employee(1, "alice", 20, "female", 2000));
-        femaleEmployees.add(new Employee(2, "jeany", 21, "female", 1000));
+        femaleEmployees.add(new Employee(1, "alice", 20, "female", 2000, 1));
+        femaleEmployees.add(new Employee(2, "jeany", 21, "female", 1000, 1));
 
         //when & then male
         given(employeeRepository.getEmployees()).willReturn(femaleEmployees);
@@ -99,12 +99,12 @@ public class EmployeesServiceTest {
     public void should_return_added_employee_when_addEmployee_given_add_an_employee(){
         //given
         List<Employee> employees = new ArrayList<>();
-        Employee employee = new Employee(1, "tom", 20, "male", 2000);
+        Employee employee = new Employee(1, "tom", 20, "male", 2000, 1);
         employees.add(employee);
         given(employeeRepository.getEmployees()).willReturn(employees);
 
         //when
-        Employee newEmployee = new Employee(1, "alice", 21, "female", 2000);
+        Employee newEmployee = new Employee(1, "alice", 21, "female", 2000, 1);
         employeeService.addEmployee(newEmployee);
         List<Employee> addEmployee = employeeService.getAllEmployees();
 
@@ -116,11 +116,11 @@ public class EmployeesServiceTest {
     public void should_return_updated_employee_given_UpdateEmployeeInformation_given_update_request_body(){
         //given
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "tom", 20, "male", 2000));
+        employees.add(new Employee(1, "tom", 20, "male", 2000, 1));
         given(employeeService.getAllEmployees()).willReturn(employees);
 
         //when
-        Employee updatedEmployee = new Employee(1, "tom", 20, "female", 2000);
+        Employee updatedEmployee = new Employee(1, "tom", 20, "female", 2000, 1);
         Employee updatedEmployee1 = employeeService.updateEmployee(1, updatedEmployee);
 
         //then
@@ -131,7 +131,7 @@ public class EmployeesServiceTest {
     public void should_return_updated_employee_list_when_deleteEmployeeRecord_given_delete_request_body(){
         //given
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(1, "tom", 20, "male", 2000));
+        employees.add(new Employee(1, "tom", 20, "male", 2000, 1));
         given(employeeService.getAllEmployees()).willReturn(employees);
 
         //when

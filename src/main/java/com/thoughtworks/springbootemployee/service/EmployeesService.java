@@ -50,7 +50,8 @@ public class EmployeesService {
                 employee.getName(),
                 employee.getAge(),
                 employee.getGender(),
-                employee.getSalary());
+                employee.getSalary(),
+                employee.getCompanyId());
         employeesRepository.getEmployees().add(employeeToBeAdded);
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/companies")
 public class CompanyController {
     private final List<Company> companies = new ArrayList<>();
     @Autowired
@@ -29,4 +29,9 @@ public class CompanyController {
     public List<Company> getCompaniesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize) {
         return companyService.getCompaniesByPagination(pageIndex, pageSize);
     }
+
+//    @GetMapping(params = "/{companyId}/employees")
+//    public List<Employee> getEmployeesByCompanyId(Integer companyId){
+//        return
+//    }
 }
