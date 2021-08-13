@@ -44,4 +44,8 @@ public class CompanyController {
     public Company updateCompany(@PathVariable Integer companyId, @RequestBody Company companyUpdated){
         return companyService.updateEmployee(companyId, companyUpdated);
     }
+
+    public void deleteCompanyRecord(Integer companyId){
+        companyService.deleteCompanyRecord(companyId);
+    }
 }

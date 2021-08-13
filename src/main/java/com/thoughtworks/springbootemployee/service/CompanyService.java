@@ -72,5 +72,12 @@ public class CompanyService {
         return company;
     }
 
-
+    public void deleteCompanyRecord(Integer companyId) {
+        Company companyToDelete = companyRepository.getCompanies()
+                .stream()
+                .filter(company -> company.getId() == companyId)
+                .findFirst()
+                .orElse(null);
+        companyRepository.getCompanies().remove(companyToDelete);
+    }
 }
