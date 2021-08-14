@@ -41,10 +41,7 @@ public class CompanyService {
     }
 
     public void addCompany(Company company) {
-        Company companyToBeAdded = new Company(retiringCompanyRepository.getCompanies().size() + 1,
-                company.getCompanyName(),
-                company.getEmployees());
-        retiringCompanyRepository.getCompanies().add(companyToBeAdded);
+        companyRepository.save(company);
     }
 
     public Company updateCompany(Integer companyId, Company companyUpdated) {
