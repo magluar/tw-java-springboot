@@ -61,7 +61,7 @@ public class EmployeesService {
                 .filter(employee -> employee.getId().equals(employeeId))
                 .findFirst()
                 .map(employee -> updateEmployeeInformation(employee, employeeUpdated))
-                .get();
+                .orElse(null);
     }
 
     private Employee updateEmployeeInformation(Employee employee, Employee employeeUpdated) {

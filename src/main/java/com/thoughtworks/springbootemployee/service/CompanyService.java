@@ -40,10 +40,10 @@ public class CompanyService {
                 .collect(Collectors.toList());
     }
 
-    public List<Employee> getEmployeesByCompanyId(Integer companyId) {
+    public List<Employee> findEmployeesByCompanyId(Integer companyId) {
         return Objects.requireNonNull(companyRepository.getCompanies()
                 .stream()
-                .filter(company -> company.getId() == companyId)
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .orElse(null))
                 .getEmployees();
@@ -56,10 +56,10 @@ public class CompanyService {
         companyRepository.getCompanies().add(companyToBeAdded);
     }
 
-    public Company updateEmployee(Integer companyId, Company companyUpdated) {
+    public Company updateCompany(Integer companyId, Company companyUpdated) {
         return companyRepository.getCompanies()
                 .stream()
-                .filter(company -> company.getId() == companyId)
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .map(company -> updateCompanyInformation(company, companyUpdated))
                 .orElse(null);
@@ -67,7 +67,7 @@ public class CompanyService {
 
     private Company updateCompanyInformation(Company company, Company companyUpdated) {
         if(company.getCompanyName() != null){
-            company.setCompanyName(company.getCompanyName());
+            company.setCompanyName(companyUpdated.getCompanyName());
         }
         return company;
     }
@@ -75,7 +75,7 @@ public class CompanyService {
     public void deleteCompanyRecord(Integer companyId) {
         Company companyToDelete = companyRepository.getCompanies()
                 .stream()
-                .filter(company -> company.getId() == companyId)
+                .filter(company -> company.getId().equals(companyId))
                 .findFirst()
                 .orElse(null);
         companyRepository.getCompanies().remove(companyToDelete);

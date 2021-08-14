@@ -18,8 +18,8 @@ public class CompanyRepository {
         Employee employee2 = new Employee(2, "bob", 21, "male", 1000, 1);
         employees.add(employee1);
         employees.add(employee2);
-        companies.add(new Company(1, "Google", employees));
-        companies.add(new Company(2, "Amazon", emptyEmployees));
+        companies.add(new Company(companies.size() + 1, "Google", employees));
+        companies.add(new Company(companies.size() + 1, "Amazon", emptyEmployees));
     }
 
     public CompanyRepository(List<Company> companies) {

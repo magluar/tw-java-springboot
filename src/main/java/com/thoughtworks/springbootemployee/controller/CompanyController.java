@@ -30,22 +30,23 @@ public class CompanyController {
         return companyService.getCompaniesByPagination(pageIndex, pageSize);
     }
 
-    @GetMapping(params = "/{companyId}/employees")
-    public List<Employee> getEmployeesByCompanyId(Integer companyId){
-        return companyService.getEmployeesByCompanyId(companyId);
+    @GetMapping(path = "/{companyId}/employees")
+    public List<Employee> getEmployeesByCompanyId(@PathVariable Integer companyId){
+        return companyService.findEmployeesByCompanyId(companyId);
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody Company company){
+    public void addCompany(@RequestBody Company company){
         companyService.addCompany(company);
     }
 
     @PutMapping(path = "/{companyId}")
     public Company updateCompany(@PathVariable Integer companyId, @RequestBody Company companyUpdated){
-        return companyService.updateEmployee(companyId, companyUpdated);
+        return companyService.updateCompany(companyId, companyUpdated);
     }
 
-    public void deleteCompanyRecord(Integer companyId){
+    @DeleteMapping(path = "/{companyId}")
+    public void deleteCompanyRecord(@PathVariable Integer companyId){
         companyService.deleteCompanyRecord(companyId);
     }
 }
