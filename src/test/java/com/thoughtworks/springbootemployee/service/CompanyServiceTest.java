@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.BDDMockito.given;
 
@@ -45,5 +46,26 @@ public class CompanyServiceTest {
         assertIterableEquals(companies, actualCompanies);
     }
 
+    @Test
+    public void should_return_companies_by_id_when_findCompanyById_api(){
+        //given
+        List<Employee> employees = new ArrayList<>();
+        List<Employee> emptyEmployees = new ArrayList<>();
+        List<Company> companies = new ArrayList<>();
+        Employee employee1 = new Employee(1, "alice", 20, "female", 2000, 1);
+        Employee employee2 = new Employee(2, "bob", 21, "male", 1000, 1);
+        employees.add(employee1);
+        employees.add(employee2);
+        Company google = new Company(companies.size() + 1, "Google", employees);
+        companies.add(google);
+        Company amazon = new Company(companies.size() + 1, "Amazon", emptyEmployees);
+        companies.add(amazon);
+        given(companyRepository.getCompanies()).willReturn(companies);
 
+        //when
+        Company actualGoogle = companyService.findCompanyById(1);
+
+        //then
+        assertEquals(google, actualGoogle);
+    }
 }
