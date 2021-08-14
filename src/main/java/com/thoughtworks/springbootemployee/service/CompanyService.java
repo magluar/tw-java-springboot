@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.controller.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,11 +32,7 @@ public class CompanyService {
     }
 
     public List<Company> getCompaniesByPagination(Integer pageIndex, Integer pageSize) {
-        return retiringCompanyRepository.getCompanies()
-                .stream()
-                .skip((long) (pageIndex - 1) * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        return companyRepository.findAll(PageRequest.of(pageIndex - 1, pageSize)).getContent();
     }
 
     public List<Employee> findEmployeesByCompanyId(Integer companyId) {
