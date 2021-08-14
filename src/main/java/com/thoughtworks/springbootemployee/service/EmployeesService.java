@@ -22,7 +22,7 @@ public class EmployeesService {
     }
 
     public List<Employee> getAllEmployees() {
-        return retiringEmployeesRepository.getEmployees();
+        return employeesRepository.findAll();
     }
 
     public Employee findEmployeeById(Integer employeeID){
@@ -50,13 +50,6 @@ public class EmployeesService {
 
     public void addEmployee(Employee employee) {
         employeesRepository.save(employee);
-//        Employee employeeToBeAdded = new Employee(retiringEmployeesRepository.getEmployees().size() + 1,
-//                employee.getName(),
-//                employee.getAge(),
-//                employee.getGender(),
-//                employee.getSalary(),
-//                employee.getCompanyId());
-//        retiringEmployeesRepository.getEmployees().add(employeeToBeAdded);
     }
 
     public Employee updateEmployee(Integer employeeId, Employee employeeUpdated){
