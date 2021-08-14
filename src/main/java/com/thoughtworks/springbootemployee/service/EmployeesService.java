@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.controller.Employee;
+import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringEmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeesService {
@@ -28,7 +28,8 @@ public class EmployeesService {
     }
 
     public Employee findEmployeeById(Integer employeeID){
-        return employeesRepository.findById(employeeID).orElse(null);
+        return employeesRepository.findById(employeeID)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee ID not found."));
     }
 
     public List<Employee> getEmployeesByPagination(Integer pageIndex, Integer pageSize){
@@ -44,7 +45,8 @@ public class EmployeesService {
     }
 
     public Employee updateEmployee(Integer employeeId, Employee employeeUpdated){
-        Employee updateEmployee = employeesRepository.findById(employeeId).orElse(null);
+        Employee updateEmployee = employeesRepository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee ID not found."));
         return employeesRepository.save(Objects.requireNonNull(updateEmployeeInformation(updateEmployee,
                 employeeUpdated)));
     }
