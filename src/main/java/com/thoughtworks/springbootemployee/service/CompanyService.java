@@ -36,12 +36,8 @@ public class CompanyService {
     }
 
     public List<Employee> findEmployeesByCompanyId(Integer companyId) {
-        return Objects.requireNonNull(retiringCompanyRepository.getCompanies()
-                .stream()
-                .filter(company -> company.getId().equals(companyId))
-                .findFirst()
-                .orElse(null))
-                .getEmployees();
+        Company company = companyRepository.findById(companyId).orElse(null);
+        return company.getEmployees();
     }
 
     public void addCompany(Company company) {
