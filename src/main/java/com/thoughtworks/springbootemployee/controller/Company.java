@@ -1,19 +1,24 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Company {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String companyName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private List<Employee> employees;
 
     public Company() {
 
     }
 
-    public Company(Integer id, String name, List<Employee> employees) {
+    public Company(Integer id, String companyName, List<Employee> employees) {
         this.id = id;
-        this.companyName = name;
+        this.companyName = companyName;
         this.employees = employees;
     }
 
