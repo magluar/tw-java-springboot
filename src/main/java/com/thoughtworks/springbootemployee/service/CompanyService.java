@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.controller.Company;
 import com.thoughtworks.springbootemployee.controller.Employee;
+import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,15 @@ import java.util.stream.Collectors;
 public class CompanyService {
     @Autowired
     private final RetiringCompanyRepository retiringCompanyRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     public CompanyService(RetiringCompanyRepository retiringCompanyRepository) {
         this.retiringCompanyRepository = retiringCompanyRepository;
     }
 
     public List<Company> getAllCompanies() {
-        return retiringCompanyRepository.getCompanies();
+        return companyRepository.findAll();
     }
 
     public Company findCompanyById(Integer companyId){
