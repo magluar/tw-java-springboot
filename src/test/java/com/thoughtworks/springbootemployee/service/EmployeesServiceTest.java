@@ -136,8 +136,10 @@ public class EmployeesServiceTest {
 
         //when
         employeeService.deleteEmployeeRecord(1);
+        List<Employee> updatedEmployeeList = employeeService.getAllEmployees();
 
         //then
         assertEquals(employeeRepository.getEmployees().size(), 0);
+        assertIterableEquals(employees, updatedEmployeeList);
     }
 }
