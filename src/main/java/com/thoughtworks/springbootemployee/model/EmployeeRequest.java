@@ -1,8 +1,5 @@
 package com.thoughtworks.springbootemployee.model;
 
-
-
-
 public class EmployeeRequest {
     private String name;
     private Integer age;
