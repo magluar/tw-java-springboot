@@ -89,4 +89,25 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$.gender").value("female"))
                 .andExpect(jsonPath("$.salary").value("9999"));
     }
+
+    @Test
+    public void should_return_employee_id_when_call_find_employee_by_id_api() throws Exception{
+        //given
+        final Employee employee = new Employee(1, "Tom", 20, "male", 9999, 1);
+        employeesRepository.save(employee);
+        //when
+
+        //then
+        int id = 1;
+        Employee searchEmployee = employeesService.findEmployeeById(id);
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(String.valueOf(searchEmployee)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Tom"))
+                .andExpect(jsonPath("$.age").value(20))
+                .andExpect(jsonPath("$.gender").value("male"))
+                .andExpect(jsonPath("$.salary").value(9999))
+                .andExpect(jsonPath("$.companyId").value(1));
+    }
 }
