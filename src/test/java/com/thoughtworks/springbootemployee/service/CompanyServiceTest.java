@@ -68,4 +68,30 @@ public class CompanyServiceTest {
         //then
         assertEquals(google, actualGoogle);
     }
+
+    @Test
+    public void should_return_companies_by_page_and_size_when_getCompanies_by_pagination_api(){
+        //given
+        List<Employee> employees = new ArrayList<>();
+        List<Employee> emptyEmployees = new ArrayList<>();
+        List<Company> companies = new ArrayList<>();
+        List<Company> emptyCompany = new ArrayList<>();
+        Employee employee1 = new Employee(1, "alice", 20, "female", 2000, 1);
+        Employee employee2 = new Employee(2, "bob", 21, "male", 1000, 1);
+        employees.add(employee1);
+        employees.add(employee2);
+        Company google = new Company(companies.size() + 1, "Google", employees);
+        companies.add(google);
+        Company amazon = new Company(companies.size() + 1, "Amazon", emptyEmployees);
+        companies.add(amazon);
+        given(companyRepository.getCompanies()).willReturn(companies);
+
+        //when
+        List<Company> actualCompanies = companyService.getCompaniesByPagination(1, 2);
+        List<Company> actualEmptyCompany = companyService.getCompaniesByPagination(2, 5);
+
+        //then
+        assertIterableEquals(companies, actualCompanies);
+        assertEquals(emptyCompany, actualEmptyCompany);
+    }
 }
