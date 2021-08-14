@@ -27,11 +27,7 @@ public class CompanyService {
     }
 
     public Company findCompanyById(Integer companyId){
-        return retiringCompanyRepository.getCompanies()
-                .stream()
-                .filter(company -> company.getId().equals(companyId))
-                .findFirst()
-                .orElse(null);
+        return companyRepository.findById(companyId).orElse(null);
     }
 
     public List<Company> getCompaniesByPagination(Integer pageIndex, Integer pageSize) {
