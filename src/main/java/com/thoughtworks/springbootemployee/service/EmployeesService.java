@@ -35,10 +35,7 @@ public class EmployeesService {
     }
 
     public List<Employee> getAllEmployeesByGender(@RequestParam String gender){
-        return retiringEmployeesRepository.getEmployees()
-                .stream()
-                .filter(employee -> gender.toLowerCase().equals(employee.getGender().toLowerCase()))
-                .collect(Collectors.toList());
+        return employeesRepository.findAllByGender(gender);
     }
 
     public void addEmployee(Employee employee) {
