@@ -1,4 +1,4 @@
-package com.thoughtworks.springbootemployee.controller.advice;
+package com.thoughtworks.springbootemployee.advice;
 
 public class ErrorResponse {
     private String message;

@@ -1,4 +1,4 @@
-package com.thoughtworks.springbootemployee.controller.advice;
+package com.thoughtworks.springbootemployee.advice;
 
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import org.springframework.http.HttpStatus;
