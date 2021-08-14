@@ -1,6 +1,5 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
 import com.thoughtworks.springbootemployee.service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 public class EmployeesController {
     private final List<Employee> employees = new ArrayList<>();
     @Autowired
-    private EmployeesService employeesService;
+    private final EmployeesService employeesService;
 
     public EmployeesController(EmployeesService employeesService){
         this.employeesService = employeesService;

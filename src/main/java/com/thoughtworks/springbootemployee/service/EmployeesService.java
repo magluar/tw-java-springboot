@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.controller.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
+import com.thoughtworks.springbootemployee.repository.RetiringEmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,18 +13,20 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeesService {
     @Autowired
-    private final EmployeesRepository employeesRepository;
+    private final RetiringEmployeesRepository retiringEmployeesRepository;
+    @Autowired
+    private EmployeesRepository employeesRepository;
 
-    public EmployeesService(EmployeesRepository employeesRepository) {
-        this.employeesRepository = employeesRepository;
+    public EmployeesService(RetiringEmployeesRepository retiringEmployeesRepository) {
+        this.retiringEmployeesRepository = retiringEmployeesRepository;
     }
 
     public List<Employee> getAllEmployees() {
-        return employeesRepository.getEmployees();
+        return retiringEmployeesRepository.getEmployees();
     }
 
     public Employee findEmployeeById(Integer employeeID){
-        return employeesRepository.getEmployees()
+        return retiringEmployeesRepository.getEmployees()
                 .stream()
                 .filter(employee -> employee.getId().equals(employeeID))
                 .findFirst()
@@ -31,7 +34,7 @@ public class EmployeesService {
     }
 
     public List<Employee> getEmployeesByPagination(Integer pageIndex, Integer pageSize){
-        return employeesRepository.getEmployees()
+        return retiringEmployeesRepository.getEmployees()
                 .stream()
                 .skip((long) (pageIndex - 1) * pageSize)
                 .limit(pageSize)
@@ -39,24 +42,25 @@ public class EmployeesService {
     }
 
     public List<Employee> getAllEmployeesByGender(@RequestParam String gender){
-        return employeesRepository.getEmployees()
+        return retiringEmployeesRepository.getEmployees()
                 .stream()
                 .filter(employee -> gender.toLowerCase().equals(employee.getGender().toLowerCase()))
                 .collect(Collectors.toList());
     }
 
     public void addEmployee(Employee employee) {
-        Employee employeeToBeAdded = new Employee(employeesRepository.getEmployees().size() + 1,
-                employee.getName(),
-                employee.getAge(),
-                employee.getGender(),
-                employee.getSalary(),
-                employee.getCompanyId());
-        employeesRepository.getEmployees().add(employeeToBeAdded);
+        employeesRepository.save(employee);
+//        Employee employeeToBeAdded = new Employee(retiringEmployeesRepository.getEmployees().size() + 1,
+//                employee.getName(),
+//                employee.getAge(),
+//                employee.getGender(),
+//                employee.getSalary(),
+//                employee.getCompanyId());
+//        retiringEmployeesRepository.getEmployees().add(employeeToBeAdded);
     }
 
     public Employee updateEmployee(Integer employeeId, Employee employeeUpdated){
-        return employeesRepository.getEmployees()
+        return retiringEmployeesRepository.getEmployees()
                 .stream()
                 .filter(employee -> employee.getId().equals(employeeId))
                 .findFirst()
@@ -81,11 +85,11 @@ public class EmployeesService {
     }
 
     public void deleteEmployeeRecord(Integer employeeID){
-        Employee employeeToDelete = employeesRepository.getEmployees()
+        Employee employeeToDelete = retiringEmployeesRepository.getEmployees()
                 .stream()
                 .filter(employee -> employee.getId().equals(employeeID))
                 .findFirst()
                 .orElse(null);
-        employeesRepository.getEmployees().remove(employeeToDelete);
+        retiringEmployeesRepository.getEmployees().remove(employeeToDelete);
     }
 }

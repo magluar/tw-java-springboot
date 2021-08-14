@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class CompanyRepository {
     private List<Company> companies = new ArrayList<>();
-    private List<Employee> employees = new ArrayList<>();
+    private final List<Employee> employees = new ArrayList<>();
 
     public CompanyRepository() {
         List<Employee> emptyEmployees = new ArrayList<>();
