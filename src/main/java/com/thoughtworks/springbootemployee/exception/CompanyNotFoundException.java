@@ -1,10 +1,10 @@
 package com.thoughtworks.springbootemployee.exception;
 
 
-public class EmployeeNotFoundException extends RuntimeException {
-    private final String message;
+public class CompanyNotFoundException extends RuntimeException {
+    private String message;
 
-    public EmployeeNotFoundException(String message) {
+    public CompanyNotFoundException(String message) {
         this.message = message;
     }
 
