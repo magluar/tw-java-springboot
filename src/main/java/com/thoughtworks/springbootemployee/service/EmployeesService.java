@@ -26,11 +26,7 @@ public class EmployeesService {
     }
 
     public Employee findEmployeeById(Integer employeeID){
-        return retiringEmployeesRepository.getEmployees()
-                .stream()
-                .filter(employee -> employee.getId().equals(employeeID))
-                .findFirst()
-                .orElse(null);
+        return employeesRepository.findById(employeeID).orElse(null);
     }
 
     public List<Employee> getEmployeesByPagination(Integer pageIndex, Integer pageSize){
