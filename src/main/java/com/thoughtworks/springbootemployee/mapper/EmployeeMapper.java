@@ -6,6 +6,8 @@ import com.thoughtworks.springbootemployee.model.EmployeeResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class EmployeeMapper {
     public Employee toEntity(EmployeeRequest employeeRequest){
@@ -18,5 +20,10 @@ public class EmployeeMapper {
         EmployeeResponse employeeResponse = new EmployeeResponse();
         BeanUtils.copyProperties(employee, employeeResponse);
         return employeeResponse;
+    }
+
+    public List<Employee> toResponse(List<Employee> employees){
+        BeanUtils.copyProperties(employees, employees);
+        return employees;
     }
 }
