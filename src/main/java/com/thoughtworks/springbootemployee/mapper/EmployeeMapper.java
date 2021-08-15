@@ -16,7 +16,7 @@ public class EmployeeMapper {
         return employee;
     }
 
-    public EmployeeResponse toRespose(Employee employee){
+    public EmployeeResponse toResponse(Employee employee){
         EmployeeResponse employeeResponse = new EmployeeResponse();
         BeanUtils.copyProperties(employee, employeeResponse);
         return employeeResponse;

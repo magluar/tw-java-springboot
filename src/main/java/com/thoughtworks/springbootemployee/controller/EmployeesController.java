@@ -32,7 +32,7 @@ public class EmployeesController {
 
     @GetMapping(path = "/{employeeId}")
     public EmployeeResponse findEmployeeById(@PathVariable Integer employeeId){
-        return employeeMapper.toRespose(employeesService.findEmployeeById(employeeId));
+        return employeeMapper.toResponse(employeesService.findEmployeeById(employeeId));
     }
 
     @GetMapping(params = {"pageIndex", "pageSize"})
@@ -48,12 +48,12 @@ public class EmployeesController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public EmployeeResponse addEmployee(@RequestBody EmployeeRequest employeeRequest){
-        return employeeMapper.toRespose(employeesService.addEmployee(employeeMapper.toEntity(employeeRequest)));
+        return employeeMapper.toResponse(employeesService.addEmployee(employeeMapper.toEntity(employeeRequest)));
     }
 
     @PutMapping(path = "/{employeeId}")
-    public Employee updateEmployee(@PathVariable Integer employeeId, @RequestBody EmployeeRequest employeeRequest){
-        return employeesService.updateEmployee(employeeId, employeeMapper.toEntity(employeeRequest));
+    public EmployeeResponse updateEmployee(@PathVariable Integer employeeId, @RequestBody EmployeeRequest employeeRequest){
+        return employeeMapper.toResponse(employeesService.updateEmployee(employeeId, employeeMapper.toEntity(employeeRequest)));
     }
 
     @DeleteMapping(path = "/{employeeId}")
