@@ -16,10 +16,8 @@ public class Company {
 
     }
 
-    public Company(Integer id, String companyName, List<Employee> employees) {
-        this.id = id;
+    public Company(String companyName) {
         this.companyName = companyName;
-        this.employees = employees;
     }
 
     public Integer getId() {

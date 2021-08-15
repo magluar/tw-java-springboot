@@ -4,7 +4,6 @@ import com.thoughtworks.springbootemployee.exception.CompanyNotFoundException;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
-import com.thoughtworks.springbootemployee.repository.RetiringCompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -14,13 +13,7 @@ import java.util.List;
 @Service
 public class CompanyService {
     @Autowired
-    private final RetiringCompanyRepository retiringCompanyRepository;
-    @Autowired
     private CompanyRepository companyRepository;
-
-    public CompanyService(RetiringCompanyRepository retiringCompanyRepository) {
-        this.retiringCompanyRepository = retiringCompanyRepository;
-    }
 
     public List<Company> getAllCompanies() {
         return companyRepository.findAll();

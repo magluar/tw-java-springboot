@@ -15,18 +15,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 public class EmployeesController {
-    private final List<Employee> employees = new ArrayList<>();
     @Autowired
-    private final EmployeesService employeesService;
+    private EmployeesService employeesService;
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public EmployeesController(EmployeesService employeesService){
-        this.employeesService = employeesService;
-    }
-
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeResponse> getAllEmployees() {
         return employeeMapper.toResponse(employeesService.getAllEmployees());
     }
 
@@ -36,12 +31,12 @@ public class EmployeesController {
     }
 
     @GetMapping(params = {"pageIndex", "pageSize"})
-    public List<Employee> getEmployeesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
+    public List<EmployeeResponse> getEmployeesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
         return employeeMapper.toResponse(employeesService.getEmployeesByPagination(pageIndex, pageSize));
     }
 
     @GetMapping (params="gender")
-    public List<Employee> getAllEmployeesByGender(@RequestParam String gender){
+    public List<EmployeeResponse> getAllEmployeesByGender(@RequestParam String gender){
         return employeeMapper.toResponse(employeesService.getAllEmployeesByGender(gender));
     }
 

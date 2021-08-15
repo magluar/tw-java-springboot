@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
-import com.thoughtworks.springbootemployee.repository.RetiringEmployeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,13 +14,7 @@ import java.util.Objects;
 @Service
 public class EmployeesService {
     @Autowired
-    private final RetiringEmployeesRepository retiringEmployeesRepository;
-    @Autowired
     private EmployeesRepository employeesRepository;
-
-    public EmployeesService(RetiringEmployeesRepository retiringEmployeesRepository) {
-        this.retiringEmployeesRepository = retiringEmployeesRepository;
-    }
 
     public List<Employee> getAllEmployees() {
         return employeesRepository.findAll();
