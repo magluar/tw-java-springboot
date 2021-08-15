@@ -42,7 +42,7 @@ public class EmployeesController {
 
     @GetMapping (params="gender")
     public List<Employee> getAllEmployeesByGender(@RequestParam String gender){
-        return employeesService.getAllEmployeesByGender(gender);
+        return employeeMapper.toResponse(employeesService.getAllEmployeesByGender(gender));
     }
 
     @PostMapping
