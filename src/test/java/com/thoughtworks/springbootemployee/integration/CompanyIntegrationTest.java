@@ -64,7 +64,7 @@ public class CompanyIntegrationTest {
     }
 
     @Test
-    public void should_return_employees_when_getAllCompanies_api() throws Exception {
+    public void should_return_companies_when_getAllCompanies_api() throws Exception {
         //given
         Company google = new Company("Google");
         Company amazon = new Company("Amazon");
@@ -74,10 +74,30 @@ public class CompanyIntegrationTest {
         //when
 
         //then
-        mockMvc.perform(MockMvcRequestBuilders.get("/companies/",
-                googleAdded.getId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].companyName").value("Google"))
                 .andExpect(jsonPath("$[1].companyName").value("Amazon"));
+    }
+
+    @Test
+    public void should_return_companies_when_getCompaniesByPagination_api() throws Exception {
+        //given
+        Company google = new Company("Google");
+        Company amazon = new Company("Amazon");
+        Company facebook = new Company("Facebook");
+        List<Company> companies = Lists.newArrayList(google, amazon, facebook);
+        companyRepository.saveAll(companies);
+
+        //when
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies")
+                .param("pageIndex", String.valueOf(1))
+                .param("pageSize", String.valueOf(3)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].companyName").value("Google"))
+                .andExpect(jsonPath("$[1].companyName").value("Amazon"))
+                .andExpect(jsonPath("$[2].companyName").value("Facebook"));
     }
 }
