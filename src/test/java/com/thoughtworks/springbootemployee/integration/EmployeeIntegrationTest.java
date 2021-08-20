@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
 import com.thoughtworks.springbootemployee.service.EmployeesService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,7 +26,7 @@ public class EmployeeIntegrationTest {
     @Autowired
     private EmployeesService employeesService;
 
-    @AfterEach
+    @BeforeEach
     public void deleteAll(){
         employeesRepository.deleteAll();
     }
@@ -95,11 +96,7 @@ public class EmployeeIntegrationTest {
     @Test
     public void should_return_employee_when_call_find_employee_by_id_api() throws Exception{
         //given
-        //todo inline
-        final Employee employee = new Employee(1, "Tom", 20, "male", 9999);
-        employeesRepository.save(employee);
-        int id = employee.getId();
-        employeesRepository.save(new Employee(1, "Tom", 20, "male", 9999));
+        int id = employeesRepository.save(new Employee(1, "Tom", 20, "male", 9999)).getId();
         //when
 
         //then

@@ -142,16 +142,17 @@ public class CompanyIntegrationTest {
     @Test
     public void should_update_company_when_updateCompany_api() throws Exception {
         //given
-        String company = "{\n" +
+        int id = companyRepository.save(new Company("Google")).getId();
+        String updatedCompany = "{\n" +
                 "    \"companyName\": \"Facebook\"\n" +
                 "}";
 
         //when
 
         //then
-        mockMvc.perform(MockMvcRequestBuilders.post("/companies")
+        mockMvc.perform(MockMvcRequestBuilders.put("/companies/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(company))
+                .content(updatedCompany))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.companyName").value("Facebook"));
     }
