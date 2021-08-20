@@ -60,7 +60,24 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$[0].name").value("Tom"))
                 .andExpect(jsonPath("$[0].age").value(20))
                 .andExpect(jsonPath("$[0].gender").value("male"))
-                .andExpect(jsonPath("$[0].salary").value(9999))
-                .andExpect(jsonPath("$[0].companyId").value(1));
+                .andExpect(jsonPath("$[0].salary").value(9999));
+    }
+
+    @Test
+    public void should_return_employees_when_getAllCompanies_api() throws Exception {
+        //given
+        Company google = new Company("Google");
+        Company amazon = new Company("Amazon");
+        Company googleAdded = companyRepository.save(google);
+        Company amazonAdded = companyRepository.save(amazon);
+
+        //when
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/",
+                googleAdded.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].companyName").value("Google"))
+                .andExpect(jsonPath("$[1].companyName").value("Amazon"));
     }
 }
