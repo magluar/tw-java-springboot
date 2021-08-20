@@ -100,4 +100,24 @@ public class CompanyIntegrationTest {
                 .andExpect(jsonPath("$[1].companyName").value("Amazon"))
                 .andExpect(jsonPath("$[2].companyName").value("Facebook"));
     }
+
+    @Test
+    public void should_return_company_when_findCompanyById_api() throws Exception {
+        //given
+        Company google = new Company("Google");
+        Company amazon = new Company("Amazon");
+        Company facebook = new Company("Facebook");
+        List<Company> companies = Lists.newArrayList(google, amazon, facebook);
+        companyRepository.saveAll(companies);
+
+        //when
+
+        //then
+        Integer id = amazon.getId();
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/{id}", id)
+                .param("pageIndex", String.valueOf(1))
+                .param("pageSize", String.valueOf(3)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.companyName").value("Amazon"));
+    }
 }
