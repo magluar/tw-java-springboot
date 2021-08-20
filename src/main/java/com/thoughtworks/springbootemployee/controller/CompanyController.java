@@ -28,8 +28,8 @@ public class CompanyController {
     }
 
     @GetMapping(path = "/{companyId}")
-    public Company findCompanyById(@PathVariable Integer companyId) {
-        return companyService.findCompanyById(companyId);
+    public CompanyResponse findCompanyById(@PathVariable Integer companyId) {
+        return companyMapper.toResponse(companyService.findCompanyById(companyId));
     }
 
     @GetMapping(params = {"pageIndex", "pageSize"})
