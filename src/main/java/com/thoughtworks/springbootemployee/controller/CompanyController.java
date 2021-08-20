@@ -43,8 +43,8 @@ public class CompanyController {
     }
 
     @PostMapping
-    public void addCompany(@RequestBody Company company){
-        companyService.addCompany(company);
+    public CompanyResponse addCompany(@RequestBody Company company){
+        return companyMapper.toResponse(companyService.addCompany(company));
     }
 
     @PutMapping(path = "/{companyId}")

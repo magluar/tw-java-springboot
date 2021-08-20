@@ -33,8 +33,8 @@ public class CompanyService {
         return company.getEmployees();
     }
 
-    public void addCompany(Company company) {
-        companyRepository.save(company);
+    public Company addCompany(Company company) {
+        return companyRepository.save(company);
     }
 
     public Company updateCompany(Integer companyId, Company companyUpdated) {
