@@ -33,8 +33,8 @@ public class CompanyController {
     }
 
     @GetMapping(params = {"pageIndex", "pageSize"})
-    public List<Company> getCompaniesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize) {
-        return companyService.getCompaniesByPagination(pageIndex, pageSize);
+    public List<CompanyResponse> getCompaniesByPagination(@RequestParam Integer pageIndex, @RequestParam Integer pageSize) {
+        return companyMapper.toResponse(companyService.getCompaniesByPagination(pageIndex, pageSize));
     }
 
     @GetMapping(path = "/{companyId}/employees")
