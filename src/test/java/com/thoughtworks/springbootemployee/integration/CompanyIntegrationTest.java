@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -119,5 +120,22 @@ public class CompanyIntegrationTest {
                 .param("pageSize", String.valueOf(3)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.companyName").value("Amazon"));
+    }
+
+    @Test
+    public void should_create_company_when_addCompany_api() throws Exception {
+        //given
+        String company = "{\n" +
+                "    \"companyName\": \"Facebook\"\n" +
+                "}";
+
+        //when
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(company))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.companyName").value("Facebook"));
     }
 }
