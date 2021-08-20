@@ -25,11 +25,8 @@ public class EmployeeMapper {
     }
 
     public List<EmployeeResponse> toResponse(List<Employee> employees){
-//        List<EmployeeResponse> newEmployees = new ArrayList<>();
         return employees.stream()
-                .map(employee -> toResponse(employee))
+                .map(this::toResponse)
                 .collect(Collectors.toList());
-//        BeanUtils.copyProperties(employees, employees);
-//        return employees;
     }
 }
