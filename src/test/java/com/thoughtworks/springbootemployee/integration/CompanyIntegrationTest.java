@@ -138,4 +138,21 @@ public class CompanyIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.companyName").value("Facebook"));
     }
+
+    @Test
+    public void should_update_company_when_updateCompany_api() throws Exception {
+        //given
+        String company = "{\n" +
+                "    \"companyName\": \"Facebook\"\n" +
+                "}";
+
+        //when
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(company))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.companyName").value("Facebook"));
+    }
 }
