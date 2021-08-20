@@ -11,8 +11,9 @@ public class CompanyResponse {
 
     }
 
-    public CompanyResponse(String companyName) {
+    public CompanyResponse(String companyName, List<Employee> employees) {
         this.companyName = companyName;
+        this.employees = employees;
     }
 
     public Integer getId() {
