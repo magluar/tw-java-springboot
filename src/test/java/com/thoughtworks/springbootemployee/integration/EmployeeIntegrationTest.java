@@ -3,9 +3,7 @@ package com.thoughtworks.springbootemployee.integration;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeesRepository;
 import com.thoughtworks.springbootemployee.service.EmployeesService;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -95,14 +93,16 @@ public class EmployeeIntegrationTest {
     }
 
     @Test
-    public void should_return_employee_id_when_call_find_employee_by_id_api() throws Exception{
+    public void should_return_employee_when_call_find_employee_by_id_api() throws Exception{
         //given
+        //todo inline
         final Employee employee = new Employee(1, "Tom", 20, "male", 9999);
         employeesRepository.save(employee);
+        int id = employee.getId();
+        employeesRepository.save(new Employee(1, "Tom", 20, "male", 9999));
         //when
 
         //then
-        int id = 1;
         Employee searchEmployee = employeesService.findEmployeeById(id);
         mockMvc.perform(MockMvcRequestBuilders.get("/employees/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -130,7 +130,9 @@ public class EmployeeIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/employees").param("gender", gender))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].gender").value("male"))
-                .andExpect(jsonPath("$[1].gender").value("male"));
+                .andExpect(jsonPath("$[0].name").value("Tom"))
+                .andExpect(jsonPath("$[1].gender").value("male"))
+                .andExpect(jsonPath("$[1].name").value("Jerry"));
     }
 
     @Test
